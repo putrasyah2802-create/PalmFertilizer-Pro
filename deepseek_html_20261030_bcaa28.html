@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PalmCalc Pro - Kalkulator Pemupukan Kelapa Sawit</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ============ AUTH PAGE ============ -->
+<div id="authPage" class="auth-container">
+  <div class="auth-left">
+    <div class="brand">
+      <div class="logo-icon">🌴</div>
+      <h1>PalmCalc <span>Pro</span></h1>
+      <p>Solusi Cerdas Perhitungan Pemupukan Kelapa Sawit</p>
+    </div>
+    <div class="features-list">
+      <div class="feat-item">✅ Hitung kebutuhan pupuk otomatis</div>
+      <div class="feat-item">✅ Estimasi biaya real-time</div>
+      <div class="feat-item">✅ Riwayat & laporan lengkap</div>
+      <div class="feat-item">✅ Rekomendasi dosis presisi</div>
+    </div>
+  </div>
+
+  <div class="auth-right">
+    <!-- LOGIN FORM -->
+    <form id="loginForm" class="auth-form active">
+      <h2>Selamat Datang 👋</h2>
+      <p class="sub">Masuk untuk melanjutkan</p>
+      <div class="input-group">
+        <label>Email</label>
+        <input type="email" id="loginEmail" placeholder="email@example.com" required>
+      </div>
+      <div class="input-group">
+        <label>Password</label>
+        <input type="password" id="loginPass" placeholder="••••••••" required>
+      </div>
+      <button type="submit" class="btn-primary">Masuk</button>
+      <p class="switch">Belum punya akun? <a href="#" onclick="toggleForm('register')">Daftar Sekarang</a></p>
+    </form>
+
+    <!-- REGISTER FORM -->
+    <form id="registerForm" class="auth-form">
+      <h2>Buat Akun 🌱</h2>
+      <p class="sub">Daftar gratis untuk mulai menghitung</p>
+      <div class="input-group">
+        <label>Nama Lengkap</label>
+        <input type="text" id="regName" placeholder="Nama Anda" required>
+      </div>
+      <div class="input-group">
+        <label>Email</label>
+        <input type="email" id="regEmail" placeholder="email@example.com" required>
+      </div>
+      <div class="input-group">
+        <label>Password</label>
+        <input type="password" id="regPass" placeholder="Min. 6 karakter" minlength="6" required>
+      </div>
+      <div class="input-group">
+        <label>Konfirmasi Password</label>
+        <input type="password" id="regPass2" placeholder="Ulangi password" required>
+      </div>
+      <button type="submit" class="btn-primary">Daftar</button>
+      <p class="switch">Sudah punya akun? <a href="#" onclick="toggleForm('login')">Masuk</a></p>
+    </form>
+  </div>
+</div>
+
+<!-- ============ APP DASHBOARD ============ -->
+<div id="appPage" class="app-container hidden">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand-mini">
+      <div class="logo-icon">🌴</div>
+      <h2>PalmCalc <span>Pro</span></h2>
+    </div>
+    <nav>
+      <a href="#" class="nav-item active" onclick="showSection('calc', this)">
+        <span>🧮</span> Kalkulator
+      </a>
+      <a href="#" class="nav-item" onclick="showSection('history', this)">
+        <span>📋</span> Riwayat
+      </a>
+      <a href="#" class="nav-item" onclick="showSection('about', this)">
+        <span>ℹ️</span> Tentang
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <div class="avatar" id="userAvatar">U</div>
+        <div>
+          <div class="uname" id="userName">User</div>
+          <div class="uemail" id="userEmail">user@mail.com</div>
+        </div>
+      </div>
+      <button class="btn-logout" onclick="logout()">Keluar</button>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <header class="topbar">
+      <h1 id="pageTitle">Kalkulator Pemupukan</h1>
+      <div class="topbar-right">
+        <span id="clock"></span>
+      </div>
+    </header>
+
+    <!-- CALC SECTION -->
+    <section id="calcSection" class="content-section">
+      <div class="grid-2">
+        <!-- INPUT FORM -->
+        <div class="card">
+          <h3>📝 Data Lahan & Pemupukan</h3>
+          <div class="input-group">
+            <label>Luas Lahan (Hektar)</label>
+            <input type="number" id="luas" placeholder="Contoh: 10" min="0.1" step="0.1">
+          </div>
+          <div class="input-group">
+            <label>Umur Tanaman (Tahun)</label>
+            <select id="umur">
+              <option value="0-3">0 - 3 Tahun (TBM)</option>
+              <option value="4-8">4 - 8 Tahun (TM Muda)</option>
+              <option value="9-13">9 - 13 Tahun (TM Dewasa)</option>
+              <option value="14-20">14 - 20 Tahun (TM Tua)</option>
+              <option value=">20">&gt; 20 Tahun (TM Rentan)</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>Jenis Tanah</label>
+            <select id="tanah">
+              <option value="mineral">Tanah Mineral</option>
+              <option value="gambut">Tanah Gambut</option>
+              <option value="pasir">Tanah Pasir</option>
+              <option value="liat">Tanah Liat</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>Jumlah Pohon / Ha</label>
+            <input type="number" id="pohon" value="136" min="1">
+          </div>
+          <div class="input-group">
+            <label>Harga Pupuk (Rp/Kg)</label>
+            <input type="number" id="harga" value="12000" min="0">
+          </div>
+          <button class="btn-primary" onclick="hitungPemupukan()">🧮 Hitung Kebutuhan</button>
+        </div>
+
+        <!-- HASIL -->
+        <div class="card result-card">
+          <h3>📊 Hasil Perhitungan</h3>
+          <div id="resultBox" class="result-box">
+            <p class="empty">Isi form di samping lalu klik <b>Hitung</b> untuk melihat hasil.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HISTORY SECTION -->
+    <section id="historySection" class="content-section hidden">
+      <div class="card">
+        <div class="card-header">
+          <h3>📋 Riwayat Perhitungan</h3>
+          <button class="btn-danger" onclick="clearHistory()">🗑️ Hapus Semua</button>
+        </div>
+        <div id="historyList"></div>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="aboutSection" class="content-section hidden">
+      <div class="card about-card">
+        <h3>🌴 Tentang PalmCalc Pro</h3>
+        <p>PalmCalc Pro adalah aplikasi berbasis web yang dirancang untuk membantu petani dan pengelola perkebunan kelapa sawit dalam menghitung kebutuhan pupuk dan estimasi biaya pemupukan secara cepat, akurat, dan efisien.</p>
+        <h4>✨ Fitur Utama:</h4>
+        <ul>
+          <li>Perhitungan dosis pupuk berdasarkan umur tanaman, jenis tanah, dan luas lahan</li>
+          <li>Estimasi biaya otomatis berdasarkan harga pupuk terkini</li>
+          <li>Penyimpanan riwayat perhitungan</li>
+          <li>Rekomendasi pupuk lengkap (N, P, K, Mg)</li>
+        </ul>
+        <h4>📐 Rumus Dasar:</h4>
+        <div class="formula">
+          Kebutuhan Pupuk = Luas Lahan × Dosis Standar × Faktor Koreksi
+        </div>
+        <p class="credit">Dibuat dengan ❤️ untuk petani Indonesia 🇮🇩</p>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
